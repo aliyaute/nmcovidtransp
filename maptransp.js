@@ -22,19 +22,19 @@ map.on('load', function () {
         'type': 'fill',
         'source': {
             'type': 'geojson',
-            'data': 'data/NM_Data.geojson'
+            'data': 'data/new_NM_Data.geojson'
         },
 
         'paint': {
             'fill-color': [
                 'case', 
-                ['==',['get', 'Poverty_Category_Code'], 6], '#99000d',
-                ['==',['get', 'Poverty_Category_Code'], 5], '#cb181d',
-                ['==',['get', 'Poverty_Category_Code'], 4], '#f0f0f0',
-                ['==',['get', 'Poverty_Category_Code'], 3], '#f0f0f0',
-                ['==',['get', 'Poverty_Category_Code'], 2], '#f0f0f0',
-                ['==',['get', 'Poverty_Category_Code'], 1], '#f0f0f0',
-                ['==',['get', 'Poverty_Category_Code'], 0], '#f0f0f0',
+                ['==',['get', 'Poverty_Category_Code'], 6], '#a63603',
+                ['==',['get', 'Poverty_Category_Code'], 5], '#d94801',
+                ['==',['get', 'Poverty_Category_Code'], 4], '#fdd0a2',
+                ['==',['get', 'Poverty_Category_Code'], 3], '#fee6ce',
+                ['==',['get', 'Poverty_Category_Code'], 2], '#fee6ce',
+                ['==',['get', 'Poverty_Category_Code'], 1], '#fee6ce',
+                ['==',['get', 'Poverty_Category_Code'], 0], '#fee6ce',
                 '#d3d3d3',
             ],
             "fill-outline-color": "#ffffff"
@@ -58,7 +58,7 @@ map.on('load', function () {
         'type': 'line',
         'source': {
             'type': 'geojson',
-            'data': 'data/NM_Data.geojson'
+            'data': 'data/new_NM_Data.geojson'
         },
         'paint': {
             'line-color': '#ffffff',
