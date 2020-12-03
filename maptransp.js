@@ -77,6 +77,9 @@ map.on('click', 'censusNM', function (e) {
     var Percentage_in_Poverty = e.features[0].properties.Percentage_in_Poverty;
     var Population_Size = e.features[0].properties.Population_Size;
     Percent = (Percent* 100).toFixed(0);
+    if (Percent < 1) {
+        Percent = "< 1";
+      }
     Percentage_in_Poverty = (Percentage_in_Poverty* 100).toFixed(0);
     Number_of_Cases = Number_of_Cases.toLocaleString();
     County = County.toUpperCase().bold();
