@@ -98,6 +98,9 @@ map.on('click', 'censusNM', function (e) {
     if (Percent_Black < 1) {
         Percent_Black = "< 1";
       }    
+    if (Other_Percent < 1) {
+        Other_Percent = "< 1";
+      }
     Percentage_in_Poverty = (Percentage_in_Poverty* 100).toFixed(0);
     Number_of_Cases = Number_of_Cases.toLocaleString();
     County = County.toUpperCase().bold();
