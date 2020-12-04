@@ -22,7 +22,7 @@ map.on('load', function () {
         'type': 'fill',
         'source': {
             'type': 'geojson',
-            'data': 'data/new_NM_Data.geojson'
+            'data': 'data/new_race_NM_Data.geojson'
         },
 
         'paint': {
@@ -58,7 +58,7 @@ map.on('load', function () {
         'type': 'line',
         'source': {
             'type': 'geojson',
-            'data': 'data/new_NM_Data.geojson'
+            'data': 'data/new_race_NM_Data.geojson'
         },
         'paint': {
             'line-color': '#ffffff',
@@ -76,6 +76,12 @@ map.on('click', 'censusNM', function (e) {
     var Percent = e.features[0].properties.Percent;
     var Percentage_in_Poverty = e.features[0].properties.Percentage_in_Poverty;
     var Population_Size = e.features[0].properties.Population_Size;
+    var White = e.features[0].properties.White;
+    var Black = e.features[0].properties.Black;
+    var AIAN = e.features[0].properties.AIAN;
+    var Hispanic = e.features[0].properties.Hispanic;
+    var ASIAN = e.features[0].properties.ASIAN;
+    var Other = e.features[0].properties.Other;
     Percent = (Percent* 100).toFixed(0);
     if (Percent < 1) {
         Percent = "< 1";
@@ -89,6 +95,12 @@ map.on('click', 'censusNM', function (e) {
             + '<p>' + NAMELSAD + '</p>'
             + '<p>' + 'population: ' + Population_Size + '</p>'
             + '<p>' + Percentage_in_Poverty  + '% live in poverty </p>'
+            + '<p>' + 'White: ' + White + '</p>'
+            + '<p>' + 'African American: ' + Black + '</p>'
+            + '<p>' + 'Native American: ' + AIAN + '</p>'
+            + '<p>' + 'Hispanic: ' + Hispanic + '</p>'
+            + '<p>' + 'Asian: ' + ASIAN + '</p>'
+            + '<p>' + 'Other: ' + Other + '</p>'
             + '<h2>' + Number_of_Cases + ' cases (' + Percent + '%) </h2>')
         .addTo(map);
 });
