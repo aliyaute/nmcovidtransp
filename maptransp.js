@@ -76,16 +76,28 @@ map.on('click', 'censusNM', function (e) {
     var Percent = e.features[0].properties.Percent;
     var Percentage_in_Poverty = e.features[0].properties.Percentage_in_Poverty;
     var Population_Size = e.features[0].properties.Population_Size;
-    var White = e.features[0].properties.White;
-    var Black = e.features[0].properties.Black;
-    var AIAN = e.features[0].properties.AIAN;
-    var Hispanic = e.features[0].properties.Hispanic;
-    var ASIAN = e.features[0].properties.ASIAN;
-    var Other = e.features[0].properties.Other;
+    var Percent_White = e.features[0].properties.Percent_White;
+    var Percent_Black = e.features[0].properties.Percent_Black;
+    var Percent_AIAN = e.features[0].properties.Percent_AIAN;
+    var Percent_Hispanic = e.features[0].properties.Percent_Hispanic;
+    var Percent_Asian = e.features[0].properties.Percent_Asian;
+    var Other_Percent = e.features[0].properties.Other_Percent;
     Percent = (Percent* 100).toFixed(0);
     if (Percent < 1) {
         Percent = "< 1";
       }
+    if (Percent_Asian < 1) {
+        Percent_Asian = "< 1";
+      }
+    if (Percent_AIAN < 1) {
+        Percent_AIAN = "< 1";
+      } 
+    if (Percent_Hispanic < 1) {
+        Percent_Hispanic = "< 1";
+      }  
+    if (Percent_Black < 1) {
+        Percent_Black = "< 1";
+      }    
     Percentage_in_Poverty = (Percentage_in_Poverty* 100).toFixed(0);
     Number_of_Cases = Number_of_Cases.toLocaleString();
     County = County.toUpperCase().bold();
@@ -95,12 +107,12 @@ map.on('click', 'censusNM', function (e) {
             + '<p>' + NAMELSAD + '</p>'
             + '<p>' + 'population: ' + Population_Size + '</p>'
             + '<p>' + Percentage_in_Poverty  + '% live in poverty </p>'
-            + '<p>' + 'White: ' + White + '</p>'
-            + '<p>' + 'African American: ' + Black + '</p>'
-            + '<p>' + 'Native American: ' + AIAN + '</p>'
-            + '<p>' + 'Hispanic: ' + Hispanic + '</p>'
-            + '<p>' + 'Asian: ' + ASIAN + '</p>'
-            + '<p>' + 'Other: ' + Other + '</p>'
+            + '<p>' + 'White: ' + Percent_White + '% </p>'
+            + '<p>' + 'African American: ' + Percent_Black + '% </p>'
+            + '<p>' + 'Native American: ' + Percent_AIAN + '% </p>'
+            + '<p>' + 'Hispanic: ' + Percent_Hispanic + '% </p>'
+            + '<p>' + 'Asian: ' + Percent_Asian + '% </p>'
+            + '<p>' + 'Other: ' + Other_Percent + '% </p>'
             + '<h2>' + Number_of_Cases + ' cases (' + Percent + '%) </h2>')
         .addTo(map);
 });
