@@ -5,7 +5,7 @@ var map = new mapboxgl.Map({
     style: 'mapbox://styles/aliyaute/ckhp5zhh72hvs19p9di978qoj',
     zoom: 5.25,
     center: [-75.32, 42.88],
-    maxZoom:12,
+    maxZoom:15,
     minZoom:6,
     maxBounds: [[-109.048428, 31.332406], [-103.000468, 37.000482]]
 
