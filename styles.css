@@ -21,7 +21,11 @@ body {
 }
 .mapboxgl-popup-content h2 {
     font-weight: 500;
-    margin-top: 0.5em;
+    font-size: 1.4em;
+    border-width: 0px 0px 0.5px 0px;
+    border-style: solid;
+    border-color: rgb(80, 80, 80);
+    margin-top: 0.2em;
     margin-bottom: 0.3em;
 }
 .mapboxgl-popup-content p {

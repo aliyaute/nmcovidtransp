@@ -108,15 +108,16 @@ map.on('click', 'censusNM', function (e) {
         .setLngLat(e.lngLat)
         .setHTML('<h4>' + County + '</h4>'
             + '<p>' + NAMELSAD + '</p>'
-            + '<p>' + 'population: ' + Population_Size + '</p>'
             + '<p>' + Percentage_in_Poverty  + '% live in poverty </p>'
+            + '<h2>' + Number_of_Cases + ' cases (' + Percent + '%) </h2>'
+            + '<p>' + 'population: ' + Population_Size + '</p>'
             + '<p>' + 'White: ' + Percent_White + '% </p>'
             + '<p>' + 'African American: ' + Percent_Black + '% </p>'
             + '<p>' + 'Native American: ' + Percent_AIAN + '% </p>'
             + '<p>' + 'Hispanic: ' + Percent_Hispanic + '% </p>'
             + '<p>' + 'Asian: ' + Percent_Asian + '% </p>'
-            + '<p>' + 'Other: ' + Other_Percent + '% </p>'
-            + '<h2>' + Number_of_Cases + ' cases (' + Percent + '%) </h2>')
+            + '<p>' + 'Other: ' + Other_Percent + '% </p>')
+
         .addTo(map);
 });
 // Change the cursor to a pointer when the mouse is over the countiesNY layer.
