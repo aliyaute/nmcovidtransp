@@ -36,6 +36,10 @@ body {
 
 .mapboxgl-popup-content {
     overflow-y: auto;
-    max-height: 36vh;
+    max-height: 32vh;
+}
+
+.mapboxgl-ctrl-compass {
+    display: none !important;
 }
   

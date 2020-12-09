@@ -10,6 +10,8 @@ var map = new mapboxgl.Map({
     maxBounds: [[-109.048428, 31.332406], [-103.000468, 37.000482]]
 
 });
+map.addControl(new mapboxgl.NavigationControl());
+
 
 map.on('load', function () {
     // This is the function that prints the layers' IDs to the console
@@ -31,10 +33,10 @@ map.on('load', function () {
                 ['==',['get', 'Poverty_Category_Code'], 6], '#a63603',
                 ['==',['get', 'Poverty_Category_Code'], 5], '#d94801',
                 ['==',['get', 'Poverty_Category_Code'], 4], '#fdd0a2',
-                ['==',['get', 'Poverty_Category_Code'], 3], '#fee6ce',
+                ['==',['get', 'Poverty_Category_Code'], 3], '#fee6ce', 
                 ['==',['get', 'Poverty_Category_Code'], 2], '#fee6ce',
                 ['==',['get', 'Poverty_Category_Code'], 1], '#fee6ce',
-                ['==',['get', 'Poverty_Category_Code'], 0], '#fee6ce',
+                // ['==',['get', 'Poverty_Category_Code'], 0], '#fee6ce',
                 '#d3d3d3',
             ],
             "fill-outline-color": "#ffffff"
@@ -71,7 +73,7 @@ map.on('load', function () {
 map.on('click', 'censusNM', function (e) {
     var County = e.features[0].properties.County;
     var NAMELSAD = e.features[0].properties.NAMELSAD;
-    var Area = e.features[0].properties.Area;
+    // var Area = e.features[0].properties.Area;
     var Number_of_Cases = e.features[0].properties.Number_of_Cases;
     var Percent = e.features[0].properties.Percent;
     var Percentage_in_Poverty = e.features[0].properties.Percentage_in_Poverty;
