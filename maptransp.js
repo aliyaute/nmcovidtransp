@@ -12,6 +12,8 @@ var map = new mapboxgl.Map({
 });
 map.addControl(new mapboxgl.NavigationControl());
 
+var stateLegendEl = document.getElementById('state-legend');
+
 
 map.on('load', function () {
     // This is the function that prints the layers' IDs to the console
@@ -32,8 +34,8 @@ map.on('load', function () {
                 'case', 
                 ['==',['get', 'Poverty_Category_Code'], 6], '#a63603',
                 ['==',['get', 'Poverty_Category_Code'], 5], '#d94801',
-                ['==',['get', 'Poverty_Category_Code'], 4], '#fdd0a2',
-                ['==',['get', 'Poverty_Category_Code'], 3], '#fee6ce', 
+                ['==',['get', 'Poverty_Category_Code'], 4], '#fdae6b',
+                ['==',['get', 'Poverty_Category_Code'], 3], '#fdd0a2', 
                 ['==',['get', 'Poverty_Category_Code'], 2], '#fee6ce',
                 ['==',['get', 'Poverty_Category_Code'], 1], '#fee6ce',
                 // ['==',['get', 'Poverty_Category_Code'], 0], '#fee6ce',

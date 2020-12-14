@@ -43,3 +43,26 @@ body {
     display: none !important;
 }
   
+.legend {
+background-color: #fff;
+border-radius: 2px;
+bottom: 0px;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+font: 12px/15px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+padding: 5px;
+position: absolute;
+right: 0px;
+z-index: 1;
+}
+ 
+.legend h4 {
+margin: 0 0 0px;
+}
+ 
+.legend div span {
+/* border-radius: 50%; */
+display: inline-block;
+height: 10px;
+margin-right: 5px;
+width: 10px;
+}
