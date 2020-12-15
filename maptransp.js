@@ -22,7 +22,7 @@ map.on('load', function () {
         console.log(layers[i].id);
     }    
     map.addLayer({
-        'id': 'censusNM',
+        'id': 'Poverty Level',
         'type': 'fill',
         'layout': {
             'visibility': 'visible'
@@ -62,8 +62,8 @@ map.on('load', function () {
 
 
     map.addLayer({
-        'id': 'censusNM_outline',
-        'type': 'line',
+        'id': 'Covid-19 Cases',
+        'type': 'fill',
         'source': {
             'type': 'geojson',
             'data': 'data/new_race_NM_Data.geojson'
@@ -71,17 +71,25 @@ map.on('load', function () {
         'layout': {
             // make layer visible by default
             'visibility': 'visible',
-            'line-join': 'round',
-            'line-cap': 'round'
             },
-        'paint': {
-            'line-color': '#ffffff',
-            'line-width': 0.5
+            'paint': {
+                'fill-color': [
+                    'case', 
+                    ['==',['get', 'Poverty_Category_Code'], 6], '#ef3b2c',
+                    ['==',['get', 'Poverty_Category_Code'], 5], '#67000d',
+                    ['==',['get', 'Poverty_Category_Code'], 4], '#a50f15',
+                    ['==',['get', 'Poverty_Category_Code'], 3], '#fee0d2', 
+                    ['==',['get', 'Poverty_Category_Code'], 2], '#fcbba1',
+                    ['==',['get', 'Poverty_Category_Code'], 1], '#fee0d2',
+                    // ['==',['get', 'Poverty_Category_Code'], 0], '#fee6ce',
+                    '#d3d3d3',
+                ],
+                "fill-outline-color": "#ffffff"
         }
     }, 'landuse'); // Here's where we tell Mapbox where to slot this new layer
 });
 
-var toggleableLayerIds = ['censusNM', 'censusNM_outline'];
+var toggleableLayerIds = ['Poverty Level', 'Covid-19 Cases'];
 
 
 // set up the corresponding toggle button for each layer
@@ -99,7 +107,7 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
     e.stopPropagation();
 
     var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-    
+
 // toggle layer visibility by changing the layout object's visibility property
 if (visibility === 'visible') {
     map.setLayoutProperty(clickedLayer, 'visibility', 'none');
@@ -118,7 +126,7 @@ if (visibility === 'visible') {
 
 
 // Create the popup
-map.on('click', 'censusNM', function (e) {
+map.on('click', 'Poverty Level', function (e) {
     var County = e.features[0].properties.County;
     var NAMELSAD = e.features[0].properties.NAMELSAD;
     // var Area = e.features[0].properties.Area;
@@ -171,10 +179,10 @@ map.on('click', 'censusNM', function (e) {
         .addTo(map);
 });
 // Change the cursor to a pointer when the mouse is over the countiesNY layer.
-map.on('mouseenter', 'censusNM', function () {
+map.on('mouseenter', 'Poverty Level', function () {
     map.getCanvas().style.cursor = 'pointer';
 });
 // Change it back to a pointer when it leaves.
-map.on('mouseleave', 'censusNM', function () {
+map.on('mouseleave', 'Poverty Level', function () {
     map.getCanvas().style.cursor = '';
 });
