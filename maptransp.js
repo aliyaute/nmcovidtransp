@@ -24,9 +24,13 @@ map.on('load', function () {
     map.addLayer({
         'id': 'censusNM',
         'type': 'fill',
+        'layout': {
+            'visibility': 'visible'
+        },
         'source': {
             'type': 'geojson',
             'data': 'data/new_race_NM_Data.geojson'
+
         },
 
         'paint': {
@@ -64,12 +68,54 @@ map.on('load', function () {
             'type': 'geojson',
             'data': 'data/new_race_NM_Data.geojson'
         },
+        'layout': {
+            // make layer visible by default
+            'visibility': 'visible',
+            'line-join': 'round',
+            'line-cap': 'round'
+            },
         'paint': {
             'line-color': '#ffffff',
             'line-width': 0.5
         }
     }, 'landuse'); // Here's where we tell Mapbox where to slot this new layer
 });
+
+var toggleableLayerIds = ['censusNM', 'censusNM_outline'];
+
+
+// set up the corresponding toggle button for each layer
+for (var i = 0; i < toggleableLayerIds.length; i++) {
+    var id = toggleableLayerIds[i];
+     
+    var link = document.createElement('a');
+    link.href = '#';
+    link.className = 'active';
+    link.textContent = id;
+     
+    link.onclick = function (e) {
+    var clickedLayer = this.textContent;
+    e.preventDefault();
+    e.stopPropagation();
+
+    var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+    
+// toggle layer visibility by changing the layout object's visibility property
+if (visibility === 'visible') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+    } else {
+    this.className = 'active';
+    map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+    }
+    };
+     
+    var layers = document.getElementById('menu');
+    layers.appendChild(link);
+    }
+
+
+
 
 // Create the popup
 map.on('click', 'censusNM', function (e) {
