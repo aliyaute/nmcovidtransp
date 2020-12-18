@@ -12,8 +12,6 @@ var map = new mapboxgl.Map({
 });
 map.addControl(new mapboxgl.NavigationControl());
 
-var stateLegendEl = document.getElementById('state-legend');
-
 
 map.on('load', function () {
     // This is the function that prints the layers' IDs to the console
@@ -60,13 +58,14 @@ map.on('load', function () {
          }
     }, 'landuse'); // Here's where we tell Mapbox where to slot this new layer
 
+    
 
     map.addLayer({
-        'id': 'Covid-19 Cases',
+        'id': 'Positivity Rate',
         'type': 'fill',
         'source': {
             'type': 'geojson',
-            'data': 'data/new_race_NM_Data.geojson'
+            'data': 'data/newest_race_NM_Data.geojson'
         },
         'layout': {
             // make layer visible by default
@@ -75,13 +74,11 @@ map.on('load', function () {
             'paint': {
                 'fill-color': [
                     'case', 
-                    ['==',['get', 'Poverty_Category_Code'], 6], '#ef3b2c',
-                    ['==',['get', 'Poverty_Category_Code'], 5], '#67000d',
-                    ['==',['get', 'Poverty_Category_Code'], 4], '#a50f15',
-                    ['==',['get', 'Poverty_Category_Code'], 3], '#fee0d2', 
-                    ['==',['get', 'Poverty_Category_Code'], 2], '#fcbba1',
-                    ['==',['get', 'Poverty_Category_Code'], 1], '#fee0d2',
-                    // ['==',['get', 'Poverty_Category_Code'], 0], '#fee6ce',
+                    ['==',['get', 'Percent_Category'], 1], '#a63603',
+                    ['==',['get', 'Percent_Category'], 2], '#d94801',
+                    ['==',['get', 'Percent_Category'], 3], '#fdae6b',
+                    ['==',['get', 'Percent_Category'], 4], '#fdd0a2', 
+
                     '#d3d3d3',
                 ],
                 "fill-outline-color": "#ffffff"
@@ -89,8 +86,8 @@ map.on('load', function () {
     }, 'landuse'); // Here's where we tell Mapbox where to slot this new layer
 });
 
-var toggleableLayerIds = ['Poverty Level', 'Covid-19 Cases'];
-
+// enumerate ids of the layers
+var toggleableLayerIds = ['Poverty Level', 'Positivity Rate'];
 
 // set up the corresponding toggle button for each layer
 for (var i = 0; i < toggleableLayerIds.length; i++) {
@@ -105,27 +102,40 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
     var clickedLayer = this.textContent;
     e.preventDefault();
     e.stopPropagation();
+    for (var j = 0; j < toggleableLayerIds.length; j++) {
+        if (clickedLayer === toggleableLayerIds[j]) {
+            layers.children[j].className = 'active';
+            map.setLayoutProperty(toggleableLayerIds[j], 'visibility', 'visible');
+        }
+        else {
+            layers.children[j].className = '';
+            map.setLayoutProperty(toggleableLayerIds[j], 'visibility', 'none');
+        }
+    }
+};
 
-    var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+var layers = document.getElementById('menu');
+layers.appendChild(link);
+}
+    
+    // var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
 
 // toggle layer visibility by changing the layout object's visibility property
-if (visibility === 'visible') {
-    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-    this.className = '';
-    } else {
-    this.className = 'active';
-    map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-    }
-    };
+// if (visibility === 'visible') {
+//     map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+//     this.className = '';
+//     } else {
+//     this.className = 'active';
+//     map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+//     }
+//     };
      
-    var layers = document.getElementById('menu');
-    layers.appendChild(link);
-    }
+//     var layers = document.getElementById('menu');
+//     layers.appendChild(link);
+//     }
 
 
-
-
-// Create the popup
+// Create the popup for first layer
 map.on('click', 'Poverty Level', function (e) {
     var County = e.features[0].properties.County;
     var NAMELSAD = e.features[0].properties.NAMELSAD;
@@ -184,5 +194,38 @@ map.on('mouseenter', 'Poverty Level', function () {
 });
 // Change it back to a pointer when it leaves.
 map.on('mouseleave', 'Poverty Level', function () {
+    map.getCanvas().style.cursor = '';
+});
+
+
+// Create the popup for 2nd layer
+map.on('click', 'Positivity Rate', function (e) {
+    var County = e.features[0].properties.County;
+    // var NAMELSAD = e.features[0].properties.NAMELSAD;
+    var Number_of_Cases = e.features[0].properties.Number_of_Cases;
+    var Percent = e.features[0].properties.Percent;
+    var Percentage_in_Poverty = e.features[0].properties.Percentage_in_Poverty;
+    var Population_Size = e.features[0].properties.Population_Size;
+
+    Percent = (Percent* 100).toFixed(0);
+    Percentage_in_Poverty = (Percentage_in_Poverty* 100).toFixed(0);
+    Number_of_Cases = Number_of_Cases.toLocaleString();
+    County = County.toUpperCase().bold();
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML('<h4>' + County + '</h4>'
+            // + '<p>' + NAMELSAD + '</p>'
+            + '<p>' + Percentage_in_Poverty  + '% live in poverty </p>'
+            + '<h2>' + Percent + ' % (' + Number_of_Cases + ' cases) </h2>'
+            + '<p>' + 'population: ' + Population_Size + '</p>')
+
+        .addTo(map);
+});
+// Change the cursor to a pointer when the mouse is over the countiesNY layer.
+map.on('mouseenter', 'Positivity Rate', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'Positivity Rate', function () {
     map.getCanvas().style.cursor = '';
 });
