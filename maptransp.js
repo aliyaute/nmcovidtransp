@@ -10,6 +10,8 @@ var map = new mapboxgl.Map({
     maxBounds: [[-109.048428, 31.332406], [-103.000468, 37.000482]]
 
 });
+
+// Zoom Button
 map.addControl(new mapboxgl.NavigationControl());
 
 
@@ -19,6 +21,10 @@ map.on('load', function () {
     for (var i = 0; i < layers.length; i++) {
         console.log(layers[i].id);
     }    
+
+
+//  add 1st map
+
     map.addLayer({
         'id': 'Poverty Level',
         'type': 'fill',
@@ -58,8 +64,7 @@ map.on('load', function () {
          }
     }, 'landuse'); // Here's where we tell Mapbox where to slot this new layer
 
-    
-
+//  add 2nd map
     map.addLayer({
         'id': 'Positivity Rate',
         'type': 'fill',
@@ -74,22 +79,23 @@ map.on('load', function () {
             'paint': {
                 'fill-color': [
                     'case', 
-                    ['==',['get', 'Percent_Category'], 1], '#a63603',
-                    ['==',['get', 'Percent_Category'], 2], '#d94801',
-                    ['==',['get', 'Percent_Category'], 3], '#fdae6b',
-                    ['==',['get', 'Percent_Category'], 4], '#fdd0a2', 
+                    ['==',['get', 'Percent_Category'], 1], '#a50f15',
+                    ['==',['get', 'Percent_Category'], 2], '#cb181d',
+                    ['==',['get', 'Percent_Category'], 3], '#fcbba1',
+                    ['==',['get', 'Percent_Category'], 4], '#fee0d2', 
 
                     '#d3d3d3',
                 ],
                 "fill-outline-color": "#ffffff"
         }
     }, 'landuse'); // Here's where we tell Mapbox where to slot this new layer
+
 });
 
 // enumerate ids of the layers
 var toggleableLayerIds = ['Poverty Level', 'Positivity Rate'];
 
-// set up the corresponding toggle button for each layer
+// Button To Switch between layers: set up the corresponding toggle button
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
      
@@ -117,25 +123,9 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
 var layers = document.getElementById('menu');
 layers.appendChild(link);
 }
-    
-    // var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
-// toggle layer visibility by changing the layout object's visibility property
-// if (visibility === 'visible') {
-//     map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-//     this.className = '';
-//     } else {
-//     this.className = 'active';
-//     map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-//     }
-//     };
-     
-//     var layers = document.getElementById('menu');
-//     layers.appendChild(link);
-//     }
 
 
-// Create the popup for first layer
+// Create the popup for 1st layer
 map.on('click', 'Poverty Level', function (e) {
     var County = e.features[0].properties.County;
     var NAMELSAD = e.features[0].properties.NAMELSAD;
@@ -188,6 +178,7 @@ map.on('click', 'Poverty Level', function (e) {
 
         .addTo(map);
 });
+
 // Change the cursor to a pointer when the mouse is over the countiesNY layer.
 map.on('mouseenter', 'Poverty Level', function () {
     map.getCanvas().style.cursor = 'pointer';
@@ -228,4 +219,14 @@ map.on('mouseenter', 'Positivity Rate', function () {
 // Change it back to a pointer when it leaves.
 map.on('mouseleave', 'Positivity Rate', function () {
     map.getCanvas().style.cursor = '';
+
+    // Add 2nd legend legend
+var map = L.mapbox.map('Positivity Rate');
+map.legendControl
+  .addLegend(document.getElementById('legend').innerHTML)
+  .setPosition('topright');
+
+var legend = document.getElementById('legend');
+legend.remove();
+
 });

@@ -12,7 +12,7 @@
 <body>
     <nav id="menu"></nav>
     <div id='map'></div>
-    <!-- <div id='Poverty Level'></div> -->
+    <div id='Poverty Level'></div>
     <div id="state-legend" class="legend">
         <h4>Percent of people</h4>
         <h4>living in poverty</h4>
@@ -25,6 +25,23 @@
 
 
         </div>
+        <!-- second legend for second layer -->
+        <div id='legend'> 
+            <strong>Positivity Rate</strong>
+            <nav class='legend clearfix'>
+              <span style='background:#fee6ce;'></span>
+              <span style='background:#fdd0a2;'></span>
+              <span style='background:#fcbba1;'></span>
+              <span style='background:#cb181d;'></span>
+              <span style='background:#a50f15;'></span>
+              <label>0 - 20%</label>
+              <label>40%</label>
+              <label>60%</label>
+              <label>80%</label>
+              <label>100%</label>
+              <small>Source: <a href="#link to source">Name of source</a></small>
+          </div>
+          <div id='map' class='dark'></div>
     <script type='text/javascript' src="maptransp.js"></script>
     
 </body>

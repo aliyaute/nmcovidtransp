@@ -58,6 +58,17 @@ z-index: 1;
 .legend h4 {
 margin: 0 0 0px;
 }
+/* second legend */
+.legend label,
+.legend span {
+  display:block;
+  float:left;
+  height:15px;
+  width:20%;
+  text-align:center;
+  font-size:9px;
+  color:#808080;
+  }
  
 .legend div span {
 /* border-radius: 50%; */
